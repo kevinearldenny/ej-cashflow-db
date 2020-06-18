@@ -1,0 +1,25 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'companies/style.css' %}" />
+
+{% if companies %}
+    <h1>{{ companies.length }} companies</h1>
+    <ul>
+    {% for company in companies %}
+        <li><a href="{% url 'companies:detail' company.ticker_symbol %}">{{ company.ticker_symbol }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No companies are available.</p>
+{% endif %}
+
+<div class="new-company-block">
+    <form action="{% url 'companies:create' %}" method="post">
+        {% csrf_token %}
+        <h3>Add new company</h3>
+        <label for="ticket">Ticker symbol</label>
+        <input type="text" id="ticker" name="ticker"><br><br>
+        <button class="new-company-btn" type="submit">Add new company</button>
+    </form>
+</div>
+

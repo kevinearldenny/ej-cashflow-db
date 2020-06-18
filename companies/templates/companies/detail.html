@@ -1,0 +1,37 @@
+<h1>{{ company.ticker_symbol }}</h1>
+
+{% if company.records_10k %}
+<div>
+    <h3>Company 10k records</h3>
+    <ul>
+        {% for rec in company.records_10k.all %}
+            {% if rec.annual_report %}
+                <li>FY {{ rec.fy_focus }}, annual report ending on {{ rec.fy_end_date }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% endif %}
+
+{% if company.shares_outstanding %}
+    <h3>Company shares outstanding</h3>
+    <div>
+        {% for rec in company.shares_outstanding.all %}
+            <div>
+                {{ rec.shares_outstanding }} as of {{ rec.date }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if company.public_float %}
+    <h3>Public float</h3>
+    <div>
+        {% for rec in company.public_float.all %}
+            <div>
+                ${{ rec.public_float }}m as of {{ rec.date }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
